@@ -1,6 +1,5 @@
 first_name = "Thai"  # This is a string
 print(first_name)
-
 last_name = "Dupervil"  # This is a string
 nick_name = "Thailand"  # This is a string
 
@@ -8,7 +7,9 @@ age = 17
 user_input = input("What is your account balance: ")  # This is a string
 bank_account_balance = int(user_input)  # Convert to integer
 bank_loans = bank_account_balance
-bank_interest = 10  # Interest rate as a percentage
+bank_interest = 10  
+
+# Interest rate as a percentage
 
 if bank_account_balance > 100:
     print(bank_account_balance, "YOURE STACKED ZOO WEE MAMA")
@@ -19,6 +20,7 @@ while bank_account_balance < 100:
     print("Make more moola")
     break  # Exit the loop after one iteration
 
+#this funciton increases intrest of the amount of money the user has to pay
 def money_maker(bank_loans, bank_interest):
     interest_due = bank_loans * (bank_interest / 100)  # Calculate interest
     print(f"You're going to owe {interest_due} due to interest.")
@@ -27,5 +29,6 @@ def money_maker(bank_loans, bank_interest):
 money_maker(bank_loans, bank_interest)
 
 moneyGoals = ['1000','10000','100000']
+#what the user adds as money goal they want to achive. 
 moneyGoals.append(bank_interest)
 print(moneyGoals)
