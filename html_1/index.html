@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BookMatch - Find Your Next Read</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+  <header>
+    <nav>
+      <div class="logo">BookMatch</div>
+      <div class="nav-links">
+        <a href="/" aria-current="page">Home</a>
+        <a href="/recommendations.html">My Recommendations</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+  </header>
+    <main>
+      <section class="hero">
+        <h1>Discover Your Next Favorite Book</h1>
+        <p>Tell us what you love, and we'll find the perfect book for you!</p>
+      </section>
+
+      <section class="preference-form">
+        <h2>What's Your Style?</h2>
+        <form id="preferencesForm">
+          <div class="form-group">
+            <label for="favoriteBook">What's a book you've enjoyed recently?</label>
+            <input type="text" id="favoriteBook" name="favoriteBook" placeholder="e.g., Harry Potter">
+          </div>
+
+          <div class="form-group">
+            <label for="musicTaste">What kind of music do you listen to?</label>
+            <select id="musicTaste" name="musicTaste">
+              <option value="">Select a genre</option>
+              <option value="pop">Pop</option>
+              <option value="rock">Rock</option>
+              <option value="hiphop">Hip Hop</option>
+              <option value="classical">Classical</option>
+              <option value="jazz">Jazz</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="showType">What type of shows do you enjoy?</label>
+            <select id="showType" name="showType">
+              <option value="">Select a type</option>
+              <option value="drama">Drama</option>
+              <option value="comedy">Comedy</option>
+              <option value="scifi">Sci-Fi</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="documentary">Documentary</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Find My Books!</button>
+        </form>
+      </section>
+
+      <section id="recommendations" class="recommendations hidden">
+        <h2>Your Personalized Recommendations</h2>
+        <div class="book-grid" id="bookResults">
+          <!-- Books will be inserted here by JavaScript -->
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>© 2024 BookMatch - Find your perfect read</p>
+    </footer>
+  </body>
+</html>
