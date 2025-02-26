@@ -194,3 +194,33 @@ document.addEventListener('DOMContentLoaded', () => {
     recommendationsSection.scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+// Initialize total points to 0
+let totalPoints = 0;
+
+function addPoints() {
+  // Get the number of books entered by the user
+  const booksRead = parseInt(document.getElementById('booksInput').value);
+
+  // Check if the input is a valid number
+  if (!isNaN(booksRead) && booksRead >= 0) {
+    // Add the points to the total
+    totalPoints += booksRead;
+
+    // Update the total points displayed
+    document.getElementById('totalPoints').textContent = totalPoints;
+
+    // Clear the input field
+    document.getElementById('booksInput').value = '';
+  } else {
+    // Alert the user if the input is not valid
+    alert("Please enter a valid number of books.");
+  }
+}
+
+
+//let cars = 12;
+//let bikes = 13;
+
+//let total = "cars" + "bikes";
+//console.log(total)

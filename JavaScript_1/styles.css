@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Optimia', system-ui, sans-serif;
   color: var(--text-color);
   background-color: var(--background-color);
   line-height: 1.6;
@@ -180,6 +180,15 @@ footer {
   margin-top: 3rem;
 }
 
+
+body {
+  background-image: url();
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -203,4 +212,64 @@ footer {
   .book-grid {
     grid-template-columns: 1fr;
   }
+}
+/* Style for the star container */
+.stars {
+  display: inline-block;
+  font-size: 30px;
+  direction: rtl; /* To make it right to left for ease of use */
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.stars input:checked ~ label {
+  color: #ffcc00;
+}
+
+.stars label:hover,
+.stars label:hover ~ label {
+  color: #ffcc00;
+}
+
+.rating-output {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+/* CSS for the page */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+#totalPoints {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* CSS for the page */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.star {
+  font-size: 30px;
+  color: gold;
+  cursor: pointer;
+  display: inline-block; /* Ensures stars appear horizontally */
+  margin-right: 5px; /* Optional: Adds space between the stars */
+}
+
+.empty-star {
+  color: lightgray;
 }
