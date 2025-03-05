@@ -219,6 +219,37 @@ function addPoints() {
 }
 
 
+function calculateReadingScore(minutesRead, booksRead) {
+  return minutesRead * booksRead;
+}
+
+// Example usage:
+let minutesRead = 120; // Example: 120 minutes read
+let booksRead = 5;     // Example: 5 books read
+
+let score = calculateReadingScore(minutesRead, booksRead);
+console.log("Reading Score: " + score); // Outputs: 600
+
+
+function calculateReadingScore() {
+  const minutesRead = document.getElementById('minutes').value;
+  const booksRead = document.getElementById('books').value;
+
+  if (minutesRead && booksRead) {
+    const score = minutesRead * booksRead;
+    document.getElementById('result').textContent = `Reading Score: ${score}`;
+  } else {
+    document.getElementById('result').textContent = 'Please enter both values.';
+  }
+}
+
+
+
+
+
+
+
+
 //let cars = 12;
 //let bikes = 13;
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
     <header>
@@ -18,7 +19,60 @@
         </div>
       </nav>
     </header>    <main>
-      <h1>My other page</h1>
+      <h1>Welcome to Your reccomendations page ! </h1>
+
+      <P>this where you will find all the books that have been reccomended to you feel free to rate or earn points for reading.</P>
+
+
+
+      <div class="stars">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5">&#9733;</label>
+
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4">&#9733;</label>
+
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3">&#9733;</label>
+
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2">&#9733;</label>
+
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1">&#9733;</label>
+    </div>
+
+    <div class="rating-output" id="rating-output">
+        <!-- Rating will be shown here -->
+    </div>
+
     </main>
+
+  <h1> Here gain points for each book that you have read</h1>
+  
+  <p>Enter the number of books you've read:</p>
+  
+  <input type="number" id="booksInput" min="0" placeholder="Enter number of books">
+  <button onclick="addPoints()">Add Points</button>
+
+  <h2>Total Points: <span id="totalPoints">0</span></h2>
+
+  <script src="script.js"></script>
+
+  <div class="container">
+    <h1>Reading Score Calculator</h1>
+    <div class="input-group">
+      <label for="minutes">Minutes Read:</label>
+      <input type="number" id="minutes" placeholder="Enter minutes">
+    </div>
+    <div class="input-group">
+      <label for="books">Books Read:</label>
+      <input type="number" id="books" placeholder="Enter number of books">
+    </div>
+    <button onclick="calculateReadingScore()">Calculate</button>
+    <h2 id="result">Reading Score: </h2>
+  </div>
+
+
   </body>
 </html>
