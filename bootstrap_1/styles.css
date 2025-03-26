@@ -1,0 +1,26 @@
+
+  .color-column-1 {
+    background-color: #ff6f61;  /* Coral */
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+  }
+
+  .color-column-2 {
+    background-color: #6fa3ef;  /* Sky Blue */
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+  }
+
+  .color-column-3 {
+    background-color: #f1c40f;  /* Golden Yellow */
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+  }
+
+  .row .col {
+    margin: 10px 0;
+  }
+

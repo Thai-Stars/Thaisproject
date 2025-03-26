@@ -40,12 +40,24 @@ nav {
 }
 
 nav a {
+  background-image: url('images/bannerpaper.jpeg');
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   transition: background-color 0.3s;
 }
+
+nav{
+  display: block !important;
+  background-image: url('images/bannerpaper.jpeg');
+  background-position: center;
+
+}
+
+
+
+
 
 nav a:hover {
   background-color: rgba(255,255,255,0.2);
@@ -182,7 +194,6 @@ footer {
 
 
 body {
-  background-image: url();
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -326,5 +337,19 @@ h2 {
   margin-top: 20px;
   font-size: 20px;
   color: #333;
+}
+
+html,body{
+  height:100vh;
+  margin:0;
+  display:grid;
+
+}
+
+.container{
+  width: 80%;
+  margin: 0;
+  display:grid;
+
 }
 
