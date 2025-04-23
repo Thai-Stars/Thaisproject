@@ -244,6 +244,27 @@ function calculateReadingScore() {
 }
 
 
+const loginForm = document.getElementById('loginForm');
+const errorMsg = document.getElementById('error-msg');
+
+// Simple hardcoded login (replace with real auth later)
+const USERNAME = 'admin';
+const PASSWORD = 'password123';
+
+loginForm.addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent form from reloading the page
+
+  const enteredUsername = document.getElementById('username').value;
+  const enteredPassword = document.getElementById('password').value;
+
+  if (enteredUsername === USERNAME && enteredPassword === PASSWORD) {
+    alert('Login successful!');
+    // Optionally redirect to a new page
+    // window.location.href = "dashboard.html";
+  } else {
+    errorMsg.textContent = 'Invalid username or password.';
+  }
+});
 
 
 
