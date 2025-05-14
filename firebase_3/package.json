@@ -1,0 +1,19 @@
+{
+  "name": "bookgenerator",
+  "version": "1.0.0",
+  "description": "A Node.js app that generates books using user input or data",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["book", "generator", "nodejs", "firebase"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^11.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
