@@ -1,92 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>BookMatch - Find Your Next Read</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-    <script src="script.js"></script>
-  </head>
-  <body>
- 
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-      <p id="error-msg"></p>
-    </form>
-  </div>
-
-  <script src="script.js"></script>
-
-  <header>
-    <nav>
-      <div class="logo">BookMatch</div>
-      <div class="nav-links">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="recommendations.html">My Recommendations</a>
-        <a href="/about.html">About</a>
-      </div>
-    </nav>
-  </header>
-    <main>
-      <section class="hero">
-        <h1>Discover Your Next Favorite Book</h1>
-        <p>Tell us what you love, and we'll find the perfect book for you!</p>
-      </section>
-
-      <section class="preference-form">
-        <h2>What's Your Style?</h2>
-        <form id="preferencesForm">
-          <div class="form-group">
-            <label for="favoriteBook">What's a book you've enjoyed recently?</label>
-            <input type="text" id="favoriteBook" name="favoriteBook" placeholder="e.g., Harry Potter">
-          </div>
-
-          <div class="form-group">
-            <label for="musicTaste">What kind of music do you listen to?</label>
-            <select id="musicTaste" name="musicTaste">
-              <option value="">Select a genre</option>
-              <option value="pop">Pop</option>
-              <option value="rock">Rock</option>
-              <option value="hiphop">Hip Hop</option>
-              <option value="classical">Classical</option>
-              <option value="jazz">Jazz</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          
-
-          <div class="form-group">
-            <label for="showType">What type of shows do you enjoy?</label>
-            <select id="showType" name="showType">
-              <option value="">Select a type</option>
-              <option value="drama">Drama</option>
-              <option value="comedy">Comedy</option>
-              <option value="scifi">Sci-Fi</option>
-              <option value="fantasy">Fantasy</option>
-              <option value="documentary">Documentary</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <button type="submit" class="submit-btn">Find My Books!</button>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        
+        /* Login Container */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .login-container.hidden {
+            display: none;
+        }
+        
+        .login-container form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .login-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .login-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-container button:hover {
+            background-color: #2980b9;
+        }
+        
+        #error-msg {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        /* Header */
+        header {
+          background: url('images/bannerpaper.jpeg') center center/cover no-repeat;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: #34495e;
+        }
+        
+        .nav-links a[aria-current="page"] {
+            background-color: #3498db;
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Form Section */
+        .preference-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .preference-form h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Recommendations Section */
+        .recommendations {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .recommendations.hidden {
+            display: none;
+        }
+        
+        .recommendations h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .book-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-card p {
+            color: #7f8c8d;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            .preference-form,
+            .recommendations {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <form id="loginForm">
+            <h2>Login to BookMatch</h2>
+            <input type="text" id="username" placeholder="Username" required />
+            <input type="password" id="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+            <p id="error-msg"></p>
         </form>
-      </section>
-
-      <section id="recommendations" class="recommendations hidden">
-        <h2>Your Personalized Recommendations</h2>
-        <div class="book-grid" id="bookResults">
-          <!-- Books will be inserted here by JavaScript -->
-        </div>
-      </section>
+    </div>
+    
+    <header>
+        <nav>
+            <div class="logo">BookMatch</div>
+            <div class="nav-links">
+                <a href="index.html" aria-current="page">Home</a>
+                <a href="recommendations.html">My Recommendations</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <h1>Discover Your Next Favorite Book</h1>
+            <p>Tell us what you love, and we'll find the perfect book for you!</p>
+        </section>
+        
+        <section class="preference-form">
+            <h2>What's Your Style?</h2>
+            <form id="preferencesForm">
+                <div class="form-group">
+                    <label for="favoriteBook">What's a book you've enjoyed recently?</label>
+                    <input type="text" id="favoriteBook" name="favoriteBook" placeholder="e.g., Harry Potter">
+                </div>
+                
+                <div class="form-group">
+                    <label for="musicTaste">What kind of music do you listen to?</label>
+                    <select id="musicTaste" name="musicTaste">
+                        <option value="">Select a genre</option>
+                        <option value="pop">Pop</option>
+                        <option value="rock">Rock</option>
+                        <option value="hiphop">Hip Hop</option>
+                        <option value="classical">Classical</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="showType">What type of shows do you enjoy?</label>
+                    <select id="showType" name="showType">
+                        <option value="">Select a type</option>
+                        <option value="drama">Drama</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="scifi">Sci-Fi</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="documentary">Documentary</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Find My Books!</button>
+            </form>
+        </section>
+        
+        <section id="recommendations" class="recommendations hidden">
+            <h2>Your Personalized Recommendations</h2>
+            <div class="book-grid" id="bookResults">
+                <!-- Books will be inserted here by JavaScript -->
+            </div>
+        </section>
     </main>
+    
     <footer>
-      <p>© 2024 BookMatch - Find your perfect read</p>
+        <p>© 2024 BookMatch - Find your perfect read</p>
     </footer>
-  </body>
+    
+    <script>
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation (you'd want real authentication in production)
+            if (username && password) {
+                document.getElementById('loginContainer').classList.add('hidden');
+            } else {
+                document.getElementById('error-msg').textContent = 'Please enter both username and password';
+            }
+        });
+        
+        // Preferences form functionality
+        document.getElementById('preferencesForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const favoriteBook = document.getElementById('favoriteBook').value;
+            const musicTaste = document.getElementById('musicTaste').value;
+            const showType = document.getElementById('showType').value;
+            
+            // Show recommendations section
+            document.getElementById('recommendations').classList.remove('hidden');
+            
+            // Generate sample recommendations based on preferences
+            const bookResults = document.getElementById('bookResults');
+            bookResults.innerHTML = generateRecommendations(favoriteBook, musicTaste, showType);
+            
+            // Scroll to recommendations
+            document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function generateRecommendations(book, music, show) {
+            const recommendations = [
+                { title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", description: "Based on your preferences, this captivating story of a reclusive Hollywood icon would be perfect for you." },
+                { title: "Where the Crawdads Sing", author: "Delia Owens", description: "A beautiful mystery that combines nature and human emotion in a way that matches your taste." },
+                { title: "The Midnight Library", author: "Matt Haig", description: "A thought-provoking novel about life's possibilities that aligns with your interests." }
+            ];
+            
+            return recommendations.map(book => 
+                `<div class="book-card">
+                    <h3>${book.title}</h3>
+                    <p><strong>By ${book.author}</strong></p>
+                    <p>${book.description}</p>
+                </div>`
+            ).join('');
+        }
+    </script>
+</body>
 </html>
