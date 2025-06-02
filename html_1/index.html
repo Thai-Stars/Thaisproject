@@ -15,7 +15,7 @@
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f4f4f4;
+            background-image:url('images/purpleglitterbackground.jpeg');
         }
         
         /* Login Container */
@@ -345,7 +345,7 @@
             <form id="preferencesForm">
                 <div class="form-group">
                     <label for="favoriteBook">What's a book you've enjoyed recently?</label>
-                    <input type="text" id="favoriteBook" name="favoriteBook" placeholder="e.g., Harry Potter">
+                    <input type="text" id="favoriteBook" name="favoriteBook" placeholder="e.g., Harry Potter, The Hunger Games, Pride and Prejudice">
                 </div>
                 
                 <div class="form-group">
@@ -357,6 +357,10 @@
                         <option value="hiphop">Hip Hop</option>
                         <option value="classical">Classical</option>
                         <option value="jazz">Jazz</option>
+                        <option value="country">Country</option>
+                        <option value="electronic">Electronic</option>
+                        <option value="indie">Indie</option>
+                        <option value="folk">Folk</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -370,7 +374,24 @@
                         <option value="scifi">Sci-Fi</option>
                         <option value="fantasy">Fantasy</option>
                         <option value="documentary">Documentary</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="romance">Romance</option>
+                        <option value="crime">Crime</option>
+                        <option value="horror">Horror</option>
                         <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="readingMood">What's your current reading mood?</label>
+                    <select id="readingMood" name="readingMood">
+                        <option value="">Select your mood</option>
+                        <option value="escapist">I want to escape reality</option>
+                        <option value="educational">I want to learn something new</option>
+                        <option value="emotional">I want something that makes me feel</option>
+                        <option value="lighthearted">I want something fun and light</option>
+                        <option value="challenging">I want something thought-provoking</option>
+                        <option value="nostalgic">I want something familiar and comforting</option>
                     </select>
                 </div>
                 
@@ -391,53 +412,203 @@
     </footer>
     
     <script>
+        // Expanded book database with diverse options
+        const bookDatabase = {
+            fantasy: [
+                { title: "The Name of the Wind", author: "Patrick Rothfuss", genre: "Fantasy", rating: "★★★★★", description: "A beautifully written tale of magic, music, and mystery that will captivate you from the first page." },
+                { title: "The Fifth Season", author: "N.K. Jemisin", genre: "Fantasy", rating: "★★★★★", description: "A groundbreaking fantasy that tackles complex themes with stunning worldbuilding and diverse characters." },
+                { title: "The Poppy War", author: "R.F. Kuang", genre: "Dark Fantasy", rating: "★★★★☆", description: "A brutal and powerful military fantasy inspired by 20th-century Chinese history." },
+                { title: "The Goblin Emperor", author: "Katherine Addison", genre: "Fantasy", rating: "★★★★☆", description: "A court intrigue fantasy focused on kindness, politics, and finding your place in the world." },
+                { title: "The Priory of the Orange Tree", author: "Samantha Shannon", genre: "Epic Fantasy", rating: "★★★★☆", description: "A standalone epic fantasy featuring dragons, multiple POVs, and diverse representation." }
+            ],
+            scifi: [
+                { title: "Klara and the Sun", author: "Kazuo Ishiguro", genre: "Literary Sci-Fi", rating: "★★★★☆", description: "A touching story about artificial intelligence, love, and what it means to be human." },
+                { title: "The Left Hand of Darkness", author: "Ursula K. Le Guin", genre: "Sci-Fi", rating: "★★★★★", description: "A groundbreaking exploration of gender, politics, and humanity on an alien world." },
+                { title: "Station Eleven", author: "Emily St. John Mandel", genre: "Post-Apocalyptic", rating: "★★★★★", description: "A hopeful post-apocalyptic novel about art, memory, and human connection." },
+                { title: "The Martian", author: "Andy Weir", genre: "Hard Sci-Fi", rating: "★★★★☆", description: "A thrilling survival story with humor, science, and an unforgettable protagonist." },
+                { title: "Becky Chambers' Wayfarers Series", author: "Becky Chambers", genre: "Optimistic Sci-Fi", rating: "★★★★☆", description: "Feel-good space opera focused on found family, community, and hope for the future." }
+            ],
+            mystery: [
+                { title: "The Thursday Murder Club", author: "Richard Osman", genre: "Cozy Mystery", rating: "★★★★☆", description: "A charming mystery featuring retirement home residents solving cold cases." },
+                { title: "Gone Girl", author: "Gillian Flynn", genre: "Psychological Thriller", rating: "★★★★☆", description: "A twisted psychological thriller about marriage, media, and deception." },
+                { title: "The Seven Moons of Maali Almeida", author: "Shehan Karunatilaka", genre: "Magical Realism Mystery", rating: "★★★★★", description: "A darkly funny afterlife mystery set in war-torn Sri Lanka." },
+                { title: "The Sweetness at the Bottom of the Pie", author: "Alan Bradley", genre: "Historical Mystery", rating: "★★★★☆", description: "A delightful mystery featuring an 11-year-old chemistry enthusiast in 1950s England." },
+                { title: "Mexican Gothic", author: "Silvia Moreno-Garcia", genre: "Gothic Mystery", rating: "★★★★☆", description: "A atmospheric horror-mystery set in 1950s Mexico with feminist themes." }
+            ],
+            romance: [
+                { title: "Beach Read", author: "Emily Henry", genre: "Contemporary Romance", rating: "★★★★☆", description: "Two rival writers challenge each other to write outside their comfort zones." },
+                { title: "The Kiss Quotient", author: "Helen Hoang", genre: "Contemporary Romance", rating: "★★★★☆", description: "A heartwarming romance featuring an autistic protagonist learning about love." },
+                { title: "Red, White & Royal Blue", author: "Casey McQuiston", genre: "LGBTQ+ Romance", rating: "★★★★★", description: "A charming enemies-to-lovers romance between the US President's son and a British Prince." },
+                { title: "The Hating Game", author: "Sally Thorne", genre: "Office Romance", rating: "★★★★☆", description: "Enemies-to-lovers office romance with wit, banter, and undeniable chemistry." },
+                { title: "Outlander", author: "Diana Gabaldon", genre: "Historical Romance", rating: "★★★★☆", description: "Time-traveling romance combining history, adventure, and epic love story." }
+            ],
+            literary: [
+                { title: "Circe", author: "Madeline Miller", genre: "Mythological Fiction", rating: "★★★★★", description: "A stunning retelling of Greek mythology from the perspective of the witch Circe." },
+                { title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", genre: "Historical Fiction", rating: "★★★★★", description: "A reclusive Hollywood icon finally tells her story to a young journalist." },
+                { title: "Hamnet", author: "Maggie O'Farrell", genre: "Historical Fiction", rating: "★★★★★", description: "A devastating and beautiful imagining of the death of Shakespeare's son." },
+                { title: "The Midnight Library", author: "Matt Haig", genre: "Philosophical Fiction", rating: "★★★★☆", description: "A thought-provoking exploration of regret, possibility, and the meaning of life." },
+                { title: "Educated", author: "Tara Westover", genre: "Memoir", rating: "★★★★★", description: "A powerful memoir about education, family, and the struggle for self-invention." }
+            ],
+            thriller: [
+                { title: "The Silent Patient", author: "Alex Michaelides", genre: "Psychological Thriller", rating: "★★★★☆", description: "A psychotherapist becomes obsessed with treating a woman who refuses to speak." },
+                { title: "The Guest List", author: "Lucy Foley", genre: "Mystery Thriller", rating: "★★★★☆", description: "A wedding on a remote island turns deadly in this atmospheric thriller." },
+                { title: "In the Woods", author: "Tana French", genre: "Literary Mystery", rating: "★★★★★", description: "Atmospheric Irish mystery that blends beautiful prose with haunting crime." },
+                { title: "Big Little Lies", author: "Liane Moriarty", genre: "Domestic Thriller", rating: "★★★★☆", description: "Dark secrets lurk beneath the surface of suburban motherhood." },
+                { title: "The Girl with the Dragon Tattoo", author: "Stieg Larsson", genre: "Crime Thriller", rating: "★★★★☆", description: "Swedish crime thriller featuring a journalist and a unique hacker." }
+            ],
+            youngAdult: [
+                { title: "The Hate U Give", author: "Angie Thomas", genre: "Contemporary YA", rating: "★★★★★", description: "A powerful story about finding your voice in the face of injustice." },
+                { title: "Eleanor Oliphant Is Completely Fine", author: "Gail Honeyman", genre: "Contemporary Fiction", rating: "★★★★☆", description: "A touching story about loneliness, friendship, and healing." },
+                { title: "Six of Crows", author: "Leigh Bardugo", genre: "YA Fantasy", rating: "★★★★★", description: "A thrilling heist fantasy with complex characters and diverse representation." },
+                { title: "The Book Thief", author: "Markus Zusak", genre: "Historical YA", rating: "★★★★★", description: "A beautiful and heartbreaking story set in Nazi Germany, narrated by Death." },
+                { title: "Cemetery Boys", author: "Aiden Thomas", genre: "YA Paranormal", rating: "★★★★☆", description: "A trans teenager summons a ghost to prove himself to his traditional family." }
+            ],
+            nonFiction: [
+                { title: "Sapiens", author: "Yuval Noah Harari", genre: "History", rating: "★★★★★", description: "A fascinating look at the history of humankind and how we became the dominant species." },
+                { title: "Educated", author: "Tara Westover", genre: "Memoir", rating: "★★★★★", description: "A powerful memoir about education, family, and self-transformation." },
+                { title: "Atomic Habits", author: "James Clear", genre: "Self-Help", rating: "★★★★☆", description: "Practical strategies for building good habits and breaking bad ones." },
+                { title: "The Immortal Life of Henrietta Lacks", author: "Rebecca Skloot", genre: "Science", rating: "★★★★★", description: "The incredible true story of cells that changed medical science forever." },
+                { title: "Just Mercy", author: "Bryan Stevenson", genre: "Social Justice", rating: "★★★★★", description: "A lawyer's fight for justice in the American legal system." }
+            ]
+        };
+
         // Login functionality
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Simple validation (you'd want real authentication in production)
             if (username && password) {
                 document.getElementById('loginContainer').classList.add('hidden');
             } else {
                 document.getElementById('error-msg').textContent = 'Please enter both username and password';
             }
         });
-        
+
         // Preferences form functionality
         document.getElementById('preferencesForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const favoriteBook = document.getElementById('favoriteBook').value;
+            const favoriteBook = document.getElementById('favoriteBook').value.toLowerCase();
             const musicTaste = document.getElementById('musicTaste').value;
             const showType = document.getElementById('showType').value;
+            const readingMood = document.getElementById('readingMood').value;
             
-            // Show recommendations section
             document.getElementById('recommendations').classList.remove('hidden');
             
-            // Generate sample recommendations based on preferences
             const bookResults = document.getElementById('bookResults');
-            bookResults.innerHTML = generateRecommendations(favoriteBook, musicTaste, showType);
+            bookResults.innerHTML = generateRecommendations(favoriteBook, musicTaste, showType, readingMood);
             
-            // Scroll to recommendations
             document.getElementById('recommendations').scrollIntoView({ behavior: 'smooth' });
         });
-        
-        function generateRecommendations(book, music, show) {
-            const recommendations = [
-                { title: "The Seven Husbands of Evelyn Hugo", author: "Taylor Jenkins Reid", description: "Based on your preferences, this captivating story of a reclusive Hollywood icon would be perfect for you." },
-                { title: "Where the Crawdads Sing", author: "Delia Owens", description: "A beautiful mystery that combines nature and human emotion in a way that matches your taste." },
-                { title: "The Midnight Library", author: "Matt Haig", description: "A thought-provoking novel about life's possibilities that aligns with your interests." }
-            ];
+
+        function generateRecommendations(book, music, show, mood) {
+            let recommendations = [];
             
-            return recommendations.map(book => 
+            // Logic for book-based recommendations
+            if (book.includes('harry potter') || book.includes('lord of the rings') || book.includes('game of thrones')) {
+                recommendations.push(...getRandomBooks(bookDatabase.fantasy, 2));
+            }
+            if (book.includes('hunger games') || book.includes('divergent') || book.includes('maze runner')) {
+                recommendations.push(...getRandomBooks(bookDatabase.youngAdult, 2));
+            }
+            if (book.includes('gone girl') || book.includes('girl on the train')) {
+                recommendations.push(...getRandomBooks(bookDatabase.thriller, 2));
+            }
+            
+            // Logic for show-based recommendations
+            switch(show) {
+                case 'scifi':
+                    recommendations.push(...getRandomBooks(bookDatabase.scifi, 2));
+                    break;
+                case 'fantasy':
+                    recommendations.push(...getRandomBooks(bookDatabase.fantasy, 2));
+                    break;
+                case 'crime':
+                case 'thriller':
+                    recommendations.push(...getRandomBooks(bookDatabase.thriller, 2));
+                    break;
+                case 'drama':
+                    recommendations.push(...getRandomBooks(bookDatabase.literary, 2));
+                    break;
+                case 'romance':
+                    recommendations.push(...getRandomBooks(bookDatabase.romance, 2));
+                    break;
+                case 'documentary':
+                    recommendations.push(...getRandomBooks(bookDatabase.nonFiction, 2));
+                    break;
+            }
+            
+            // Logic for music-based recommendations
+            switch(music) {
+                case 'classical':
+                case 'jazz':
+                    recommendations.push(...getRandomBooks(bookDatabase.literary, 1));
+                    break;
+                case 'rock':
+                case 'indie':
+                    recommendations.push(...getRandomBooks(bookDatabase.youngAdult, 1));
+                    break;
+                case 'hiphop':
+                    recommendations.push(...getRandomBooks(bookDatabase.youngAdult, 1));
+                    break;
+                case 'folk':
+                case 'country':
+                    recommendations.push(...getRandomBooks(bookDatabase.literary, 1));
+                    break;
+            }
+            
+            // Logic for mood-based recommendations
+            switch(mood) {
+                case 'escapist':
+                    recommendations.push(...getRandomBooks(bookDatabase.fantasy, 1));
+                    recommendations.push(...getRandomBooks(bookDatabase.scifi, 1));
+                    break;
+                case 'educational':
+                    recommendations.push(...getRandomBooks(bookDatabase.nonFiction, 2));
+                    break;
+                case 'emotional':
+                    recommendations.push(...getRandomBooks(bookDatabase.literary, 2));
+                    break;
+                case 'lighthearted':
+                    recommendations.push(...getRandomBooks(bookDatabase.romance, 2));
+                    break;
+                case 'challenging':
+                    recommendations.push(...getRandomBooks(bookDatabase.literary, 1));
+                    recommendations.push(...getRandomBooks(bookDatabase.scifi, 1));
+                    break;
+                case 'nostalgic':
+                    recommendations.push(...getRandomBooks(bookDatabase.youngAdult, 2));
+                    break;
+            }
+            
+            // If no specific matches, provide a diverse mix
+            if (recommendations.length < 3) {
+                const allCategories = Object.keys(bookDatabase);
+                allCategories.forEach(category => {
+                    recommendations.push(...getRandomBooks(bookDatabase[category], 1));
+                });
+            }
+            
+            // Remove duplicates and limit to 6 recommendations
+            const uniqueRecommendations = recommendations.filter((book, index, self) => 
+                index === self.findIndex(b => b.title === book.title)
+            ).slice(0, 6);
+            
+            return uniqueRecommendations.map(book => 
                 `<div class="book-card">
                     <h3>${book.title}</h3>
-                    <p><strong>By ${book.author}</strong></p>
-                    <p>${book.description}</p>
+                    <p class="author">By ${book.author}</p>
+                    <span class="genre">${book.genre}</span>
+                    <p class="description">${book.description}</p>
+                    <p class="rating">${book.rating}</p>
                 </div>`
             ).join('');
+        }
+        
+        function getRandomBooks(bookArray, count) {
+            const shuffled = bookArray.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
         }
     </script>
 </body>
